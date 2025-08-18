@@ -73,7 +73,7 @@ def NotifyView(request):
         targeted_users = User.objects.filter(grade=new_lecture.grade)
         if targeted_users.exists():
             userid_list = [user.userId for user in targeted_users]
-            msg = f"【講義変更】\n学年: {new_lecture.grade}\n科目: {new_lecture.subject}\n内容: {new_lecture.content}"
+            msg = f"【講義変更】\n学年: {new_lecture.grade}\n科目: {new_lecture.subject}\n{os.getenv('TARGET_URL', 'http://dbweb.m.kanazawa-u.ac.jp/stu/lect/listrec.php')}"
             
             linebot = LineBotMSG(msg)
             # userにmulticast
