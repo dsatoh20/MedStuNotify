@@ -38,6 +38,7 @@ class LINEAPIView(APIView):
             return Response("No message event", status=200)
         
         print("Message recieved.")
+        print(data)
         text = data['message'].get('text')
         userid = data['source']['groupId'] or data['source']['roomId'] or data['source']['userId']
 
