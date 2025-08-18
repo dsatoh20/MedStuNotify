@@ -5,7 +5,13 @@ from rest_framework import permissions, viewsets
 from rest_framework.response import Response
 from .serializers import LectureSerializer
 from rest_framework.decorators import api_view
+import environ, os
+from pathlib import Path
 
+BASE_DIR = Path(__file__).resolve().parent.parent
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+env = environ.Env()
+SCRAPE_API_KEY = env('SCRAPE_API_KEY') # scripts/scrape.pyからのrequestのみ許可するため
 
 class LectureViewSet(viewsets.ModelViewSet):
     """
@@ -20,6 +26,12 @@ def NotifyView(request):
     """
     Lecturesに新規登録があった場合、LINEに通知する。
     """
+    provided_key = request.headers.get('X-API-KEY')
+    # キーが正しいか検証
+    if provided_key != SCRAPE_API_KEY:
+        # キーが違う、または存在しない場合は403 Forbiddenエラーを返す
+        return Response({"detail": "Authentication credentials were not provided."}, status=403)
+    
     incoming_lectures = request.data
     if not incoming_lectures:
         return Response("No data provided.", status=400)
