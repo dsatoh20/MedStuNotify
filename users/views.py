@@ -70,6 +70,7 @@ class LINEAPIView(APIView):
 
         _, created = User.objects.update_or_create(
             userId=userid,
+            userType=userType,
             defaults={'grade': grade}
         )
         if created: # 新規ユーザーを登録
