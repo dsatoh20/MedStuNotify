@@ -58,7 +58,8 @@ class LINEAPIView(APIView):
         # 学年を設定する
         try:
             # メッセージをスペースで分割し、最後の要素を学年とする
-            grade_str = text.strip().split()[-1]
+            # 例：/notify 3
+            grade_str = list(text.strip())[-1]
             grade = int(grade_str)
         except (ValueError, IndexError):
             print("Invalid grade input.")
