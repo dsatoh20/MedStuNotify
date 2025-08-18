@@ -76,8 +76,13 @@ def NotifyView(request):
             msg = f"【講義変更】\n学年: {new_lecture.grade}\n科目: {new_lecture.subject}\n内容: {new_lecture.content}"
             
             linebot = LineBotMSG(msg)
+            # userにmulticast
             linebot.multicast(userid_list)
-            
+            # group, roomは1つずつpush
+            for user in targeted_users:
+                if user.userType == 'group' or user.userType == 'room':
+                    linebot.push(user.userId)
+
             print(f"Notification for '{new_lecture.subject}' sent to {len(userid_list)} users.")
         else:
             print(f"No users found for grade {new_lecture.grade}.")
