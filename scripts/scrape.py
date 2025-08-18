@@ -40,7 +40,8 @@ def scrape_and_post():
 
         lectures = []
         for table in tables:
-            tds = table.find_all("td")
+            tr = table.find("tr")
+            tds = tr.find_all("td")
             if len(tds) != 3:
                 print('Warning: 構造が異なるテーブルが見つかりました。この行をスキップします。')
                 continue # この行の処理をスキップして次に進む
@@ -76,6 +77,7 @@ def scrape_and_post():
         
         # POST
         if lectures:
+            print(lectures)
             print(f"Sending {len(lectures)} lectures to the API...")
             try:
                 # 1. タイムアウトを設定し、エラーハンドリングを行う
