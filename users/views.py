@@ -26,6 +26,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
 msg_to_activate = env('MSG_TO_ACTIVATE')
 
+
 class LINEAPIView(APIView):
     def post(self, request, *args, **kwargs):
         res = request.data
