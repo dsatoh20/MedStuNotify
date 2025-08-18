@@ -57,7 +57,7 @@ class LINEAPIView(APIView):
             return Response("No message for this bot", status=200)
         # 学年を設定する
         try:
-            # メッセージをスペースで分割し、最後の要素を学年とする
+            # メッセージをlistで1文字ずつに分割し、最後の要素を学年とする
             # 例：/notify 3
             grade_str = list(text.strip())[-1]
             grade = int(grade_str)
