@@ -14,7 +14,7 @@ import re # 正規表現を扱うためにインポート
 import os
 
 url = os.getenv('TARGET_URL', 'http://dbweb.m.kanazawa-u.ac.jp/stu/lect/listrec.php')
-API_URL = os.getenv('NOTIFY_API_URL', 'http://localhost:8000/api/v1/lectures/notify/')
+NOTIFY_API_URL = os.getenv('NOTIFY_API_URL', 'http://localhost:8000/api/v1/lectures/notify/')
 SCRAPE_API_KEY = os.getenv('NOTIFY_API_KEY')
 
 headers = {
@@ -79,7 +79,7 @@ def scrape_and_post():
             print(f"Sending {len(lectures)} lectures to the API...")
             try:
                 # 1. タイムアウトを設定し、エラーハンドリングを行う
-                response = requests.post(API_URL, json=lectures, headers=headers, timeout=10)
+                response = requests.post(NOTIFY_API_URL, json=lectures, headers=headers, timeout=10)
                 
                 # 4xx, 5xx系のエラーステータスコードの場合、例外を発生させる
                 response.raise_for_status() 
