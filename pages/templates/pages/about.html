@@ -1,0 +1,22 @@
+{% extends 'pages/base.html' %}
+{% block title %}{% endblock %}
+{% block header %}使い方{% endblock %}
+{% block content %}
+<h4>使い方</h4>
+<ol>
+    <li>MedStuNotifyを <a href="https://lin.ee/DFg1Qmh"><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height="36" border="0"></a> する。</li>
+    <li>MedStuNotifyとのチャットページに移動し、`/notify`に続いて、半角スペースと学年（半角数字）を入力する。<br>（例：3年生の講義変更を通知したいとき「/notify 3」と入力する。）</li>
+    <li>2で登録した学年を対象とする講義情報が<a href="http://dbweb.m.kanazawa-u.ac.jp/stu/lect/listrec.php" target="_blank" rel="noopener noreferrer">医学類 電子掲示情報</a>に新規掲載された場合に、その内容が自動でチャットに通知される。</li>
+</ol>
+<h4>注意事項</h4>
+<ul>
+    <li>学年を更新する場合には、前述の2同様に`/notify`に続いて、半角スペースと学年（半角数字）を入力してください。</li>
+    <li>本サービスは学年グループライン等でも使用できます。友だち追加後、グループにMedStuNotifyを招待し、学年を登録してください。</li>
+    <li>不具合が疑われる場合には、ただちに<a href="/contact">お問い合わせフォーム</a>からご連絡ください。</li>
+    <li>MedStuNotifyの利用にあたって生じた遅刻・欠席による不利益について、本サービスは一切の責任を負いません。</li>
+</ul>
+<h4>お問い合わせ</h4>
+<ul>
+    <li><a href="/contact">お問い合わせフォーム</a></li>
+</ul>
+{% endblock %}
