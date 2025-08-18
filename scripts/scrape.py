@@ -15,7 +15,7 @@ import os
 
 url = os.getenv('TARGET_URL', 'http://dbweb.m.kanazawa-u.ac.jp/stu/lect/listrec.php')
 NOTIFY_API_URL = os.getenv('NOTIFY_API_URL', 'http://localhost:8000/api/v1/lectures/notify/')
-SCRAPE_API_KEY = os.getenv('NOTIFY_API_KEY')
+SCRAPE_API_KEY = os.getenv('SCRAPE_API_KEY')
 
 headers = {
     'X-API-KEY': SCRAPE_API_KEY # 独自ヘッダーにキーを設定
