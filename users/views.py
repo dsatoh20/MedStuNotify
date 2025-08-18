@@ -40,7 +40,16 @@ class LINEAPIView(APIView):
         print("Message recieved.")
         print(data)
         text = data['message'].get('text')
-        userid = data['source']['groupId'] or data['source']['roomId'] or data['source']['userId']
+        userType = data['source']['type'] # user or group or room
+        if userType == 'user':
+            userid = data['source']['userId']
+        elif userType == 'group':
+            userid = data['source']['groupId']
+        elif userType == 'room':
+            userid = data['source']['roomId']
+        else:
+            return Response("Invalid user type", status=400)
+        
 
         # msg_to_activateがメッセージの先頭にあるか確認
         if not text.startswith(msg_to_activate):
@@ -53,7 +62,7 @@ class LINEAPIView(APIView):
             grade = int(grade_str)
         except (ValueError, IndexError):
             print("Invalid grade input.")
-            msg = f"`{msg_to_activate}`に続いて、学年を半角数字で入力してください：\n 例：`{msg_to_activate} 3`."
+            msg = f"「{msg_to_activate}」に続いて、学年を半角数字で入力してください：\n 例：「{msg_to_activate} 3」."
             linebot = LineBotMSG(msg)
             linebot.reply(reply_token)
             return Response("Invalid grade format", status=400)
