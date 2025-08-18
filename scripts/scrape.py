@@ -32,19 +32,17 @@ def scrape_and_post():
         soup = BeautifulSoup(response.text, "html.parser")
         # print(soup.prettify())
 
-        # 講義情報が含まれるtbodyタグを特定してから、その中のtrだけを取得する
-        table = soup.table
-        if not table:
+        # 講義情報が含まれるtableタグをすべて取得する
+        tables = soup.find_all('table')
+        if not tables:
             print("講義情報のテーブルが見つかりませんでした。")
-            trs = []
-        else:
-            trs = table.find_all("tr")
+            raise Exception("No tables found")
 
         lectures = []
-        for tr in trs:
-            tds = tr.find_all("td")
+        for table in tables:
+            tds = table.find_all("td")
             if len(tds) != 3:
-                print('Warning: 構造が異なる行をスキップしました。')
+                print('Warning: 構造が異なるテーブルが見つかりました。この行をスキップします。')
                 continue # この行の処理をスキップして次に進む
 
             try:

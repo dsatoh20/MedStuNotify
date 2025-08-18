@@ -36,7 +36,7 @@ def NotifyView(request):
     if not incoming_lectures:
         return Response("No data provided.", status=400)
 
-    # 既存の講義を一度にすべて取得（タプルのセットにして高速検索）
+    # 既存の講義を一度にすべて取得（タプルのセットにして検索）
     existing_lectures = set(Lecture.objects.values_list('grade', 'subject', 'content'))
 
     new_lectures_to_create = []
@@ -61,6 +61,7 @@ def NotifyView(request):
     # 新規講義がなければ、ここで処理を終了
     if len(new_lectures_to_create) == 0:
         print('No new lectures found.')
+        print(existing_lectures)
         return Response("No new lectures to process.", status=200)
 
     # 3. パフォーマンス改善：bulk_createで新規講義を一括登録
