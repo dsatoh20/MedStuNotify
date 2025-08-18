@@ -19,7 +19,7 @@ class LectureViewSet(viewsets.ModelViewSet):
     """
     queryset = Lecture.objects.all().order_by('-created_at')
     serializer_class = LectureSerializer
-    permission_classes = [permissions.AllowAny]
+    permission_classes = [permissions.IsAdminUser]
 
 @api_view(['POST'])
 def NotifyView(request):
