@@ -41,29 +41,27 @@ def scrape_and_post():
         lectures = []
         for table in tables:
             tr = table.find("tr")
-            tds = tr.find_all("td")
-            if len(tds) != 3:
-                print('Warning: 構造が異なるテーブルが見つかりました。この行をスキップします。')
-                continue # この行の処理をスキップして次に進む
+            grade_td = tr.find('td', class_='line01')
+            subject_td = tr.find('td', class_='line02')
+            content_td = tr.find('td', class_='auto')
+
+            if not (grade_td and subject_td and content_td):
+                print('Warning: 構造が異なる行をスキップしました。')
+                continue
 
             try:
                 # 学年
                 #  正規表現を使って、文字列から最初の数字を安全に抜き出す
-                grade_text = tds[0].get_text()
+                grade_text = grade_td.get_text()
                 match = re.search(r'\d+', grade_text)
                 if not match:
                     print(f"Warning: 学年が見つかりませんでした: {grade_text}")
                     continue
                 grade = int(match.group(0))
                 # 科目
-                subject = tds[1].get_text().strip()
+                subject = subject_td.get_text().strip()
                 # 内容
-                content_cell = tds[2]
-                date_tag = content_cell.find("p", class_="date")
-                date = date_tag.get_text()
-                
-                content = content_cell.get_text(strip=True, separator=' ')
-                content += date
+                content = content_td.get_text(strip=True, separator=' ')
 
                 lectures.append({
                     "grade": grade,
