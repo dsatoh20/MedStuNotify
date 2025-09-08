@@ -1,4 +1,3 @@
-from django.shortcuts import redirect
 from django.views.generic import TemplateView
 
 class PrivacyPolicyView(TemplateView):
@@ -10,5 +9,5 @@ class AboutView(TemplateView):
 class ContactView(TemplateView):
     template_name = 'pages/contact.html'
 
-def redirect_to_about():
-    return redirect(to='/about', permanent=True)
+class IndexView(TemplateView):
+    template_name = 'pages/index.html'
