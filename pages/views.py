@@ -11,4 +11,4 @@ class ContactView(TemplateView):
     template_name = 'pages/contact.html'
 
 def redirect_to_about():
-    return redirect('about', permanent=True)
+    return redirect(to='/about', permanent=True)
